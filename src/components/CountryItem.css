@@ -1,5 +1,10 @@
 .main-country-container{
-    width: 20rem;
+    width: fit-content;
+    padding: 1rem;
     border: 1px solid #f00;
     background-color: pink;
+}
+img{
+    height:200px ;
+    /* width: 300px; */
 }
