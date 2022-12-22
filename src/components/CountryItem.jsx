@@ -1,10 +1,9 @@
 import React from 'react'
-import './CountryItem.css'
 export const CountryItem = ({name,flag}) => {
   return (
-    <div className='main-country-container'>
-        <h1>{ name }</h1>
-        <img src={ flag }  />
+    <div style={{maxWidth: "320px"  }} className='card py-2 px-1 d-flex flex-column justify-content-center align-items-center'>
+        <h1 className="text-center">{ name }</h1>
+        <img style={{maxWidth: "320px"  }} src={ flag }  />
 
     </div>
     
