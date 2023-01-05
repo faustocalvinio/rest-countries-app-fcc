@@ -1,7 +1,6 @@
 import { CountryItem } from './components/CountryItem';
 import './App.css'
 import { useEffect, useState } from 'react';
-import { getCountries } from './helpers/getCountries';
 import { useFetchCountries } from './hooks/useFetchCountries';
 import { ListCountries } from './components/ListCountries';
 
@@ -9,54 +8,125 @@ import { ListCountries } from './components/ListCountries';
 export const App=()=> {
 
     const [countries, setCountries] = useState([]);
-    const [filteredCountries, setFilteredCountries] = useState([]);
-    const [inputValue, setInputValue] = useState();
-    const url='https://restcountries.com/v3.1/all';
-    
-    
-    
-      function filterData(data,inputValue) {
-        const filteredData = data.filter(item => item.name.toLowerCase().includes(inputValue));
-        return filteredData;
-      }
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState()
+    const [countryQuery, setCountryQuery] = useState("")
+    const [searchParam] = useState(["capital", "name"]);
+    const [filteredCountries, setFilteredCountries] = useState([])
+
+
+
+
+
+    useEffect(() => {
+      useFetchCountries()
+      .then((result) => {
+        setIsLoading(false);
+        setCountries(result.sort((a,b)=>{
+          if(a.name < b.name){
+            return -1;
+          }
+          if (a.name > b.name) {
+            return 1;
+          }
+          return 0;
+        }));
+        console.log("use effect")
+      },(error) => {
+          setIsLoading(true);
+          setError(error);
+      }); 
+    }, [])
     
 
-    const onInputChange=(event)=>{
-      setInputValue( event.target.value );
-      setCountries(filterData(countries,inputValue))
-      
+    const search=(items)=>{
+      return items.filter((item) => {
+      return searchParam.some((newItem) => {
+      return (
+          item[newItem]
+              .toString()
+              .toLowerCase()
+              .indexOf(countryQuery.toLowerCase()) > -1
+        );
+      });
+      });
     }
-    const onCleanInput=()=>{
-      setInputValue('');
-      setFilteredCountries(countries);
 
+    const busqueda=(elemento)=> {
+      return elemento === countryQuery
     }
-    const setCountriesFetch=async()=>{
-      setCountries(await useFetchCountries());
-    }
-   
-    setCountriesFetch();
-    
-    
+    const onInputSearch=(e)=>{
+      setCountryQuery(e.target.value.toLowerCase());
+      // console.log(e.target.value);
+      setFilteredCountries(countries.filter((country)=>country.name==="argentina"))
+      console.log(countries.filter(country=>country.name==="argentina"))
+  }
 
-    return (
-      <div className="App">
+    if (error) {
+      return (
+        <div className="App">
         <h1>App paises</h1>
-          <div className="d-flex gap-3 py-4">
-            <input 
-              type="text" 
-              placeholder="search"
-              value={ inputValue }
-              onChange={ onInputChange }              
-              className="form-control"
-              style={{maxWidth:'200px'}}
-            />
-            <button className="btn btn-primary" onClick={ onCleanInput }>Cerrar</button>
-          </div>  
-      
-          <ListCountries countries={ countries }/>
+        <h4>{error.message}</h4>
+        </div>
+        );   
+    } 
+    else if (isLoading) {
+      return (
+        <div className="App">
+          <h1>App paises</h1>
+        <h4>Loading...</h4>
+        </div>
+      );
+    }      
+    else{
+        return (
+          <div className="App">
+            <h1>App paises</h1>
+              <div className="d-flex gap-3 py-4">
+                <input 
+                  type="search" 
+                  placeholder="search"
+                  className="form-control"
+                  style={{width:'100%'}}
+                  onChange={(e)=>onInputSearch(e)}
+                />
+                <button className="btn btn-primary" >Cerrar</button>
+              </div>  
+              {                
+                countryQuery===""? <ListCountries countries={ countries }/> : <ListCountries countries={countries.filter(item=>item.name.toLowerCase().includes(countryQuery))}/>
+              }
+              
 
-      </div>
-    )
+
+              {/* {search(countries).map((item) => (
+                        <li>
+                            <article className="card" key={item.callingCodes}>
+                                <div className="card-image">
+                                    <img src={item.flag} alt={item.name} />
+                                </div>
+                                <div className="card-content">
+                                    <h2 className="card-name">{item.name}</h2>
+                                    <ol className="card-list">
+                                        <li>
+                                            population:{" "}
+                                            <span>{item.population}</span>
+                                        </li>
+                                        <li>
+                                            Region: <span>{item.region}</span>
+                                        </li>
+                                        <li>
+                                            Capital: <span>{item.capital}</span>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </article>
+                        </li>
+                    ))} */}
+
+          </div>
+        )
+      }
+
+   
 }
 

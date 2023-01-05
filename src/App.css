@@ -1,6 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&display=swap');
+
 body{
     padding: 1rem;
+    max-width: 1440px;
+    margin: auto;
+    font-family: 'Nunito Sans',sans-serif;
 }
+:root{
+    --darkBlue: hsl(209, 23%, 22%)
+    --veryDarkBlueDarkBackground: hsl(207, 26%, 17%)
+    --veryDarkBlueLightText: hsl(200, 15%, 8%)
+    --darkGrayLightInput: hsl(0, 0%, 52%)
+    --veryLightGrayLight Background: hsl(0, 0%, 98%)
+    --whiteDarkModeTextLightElements: hsl(0, 0%, 100%)
+}
+
+
 ::-webkit-scrollbar-thumb{
     background-color: red;
 }
@@ -11,3 +26,32 @@ body{
     width: 1rem;
     height: 100vh;
 } 
+.text-center{
+    font-size: 1rem;
+}
+.country-img{
+    width: 100%;
+    max-width: 320px;
+}
+.country-card{
+    padding: 0rem 0;
+    border: 1px solid black;
+}
+.country-name{
+    font-weight: 800;
+    font-size: 28px;
+}
+.data-cont{
+    padding: 1rem 1rem;
+}
+.country-capital{
+    font-weight:600;
+}
+.country-region{
+    font-weight:600;
+
+}
+.country-population{
+    font-weight:600;
+
+}

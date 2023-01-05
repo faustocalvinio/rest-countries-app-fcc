@@ -1,9 +1,17 @@
 import React from 'react'
-export const CountryItem = ({name,flag}) => {
+export const CountryItem = ({name,flag,capital,region,population}) => {
   return (
-    <div style={{maxWidth: "320px"  }} className='card py-2 px-1 d-flex flex-column justify-content-center align-items-center'>
-        <h1 className="text-center">{ name }</h1>
-        <img style={{maxWidth: "320px"  }} src={ flag }  />
+    <div className="country-card">
+        <img className="country-img" src={ flag }  />
+        <section className="data-cont">
+          <p className="country-name">{ name }</p>
+          <p className="country-capital">{ capital }</p>
+          <p className="country-region">{ region }</p>
+          <p className="country-population">{ population }</p>
+
+        </section>
+        
+        
 
     </div>
     
