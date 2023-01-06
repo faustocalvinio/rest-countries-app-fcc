@@ -10,6 +10,5 @@ export const getCountries = async() => {
         population:country.population,
         capital:country.capital,
     }))
-    console.log(countryArr)
     return countryArr;
 }
