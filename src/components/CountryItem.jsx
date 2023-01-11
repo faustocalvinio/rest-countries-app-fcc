@@ -1,5 +1,5 @@
 import React from 'react'
-import { Navigate } from 'react-router-dom'
+import { Link, Navigate } from 'react-router-dom'
 export const CountryItem = ({name,flag,capital,region,population,id}) => {
 
   const onNavigateToCountryPage=(id)=>{
@@ -18,7 +18,7 @@ export const CountryItem = ({name,flag,capital,region,population,id}) => {
           <p className="country-capital">{ capital }</p>
           <p className="country-region">{ region }</p>
           <p className="country-population">{ population }</p>
-          <button><a href='/country/argentina'>navi</a></button>
+          <Link className='btn btn-primary' to={`/country/${id}`}>View More </Link>
         </section>
         
         

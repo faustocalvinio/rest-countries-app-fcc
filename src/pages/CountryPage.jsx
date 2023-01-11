@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { getCountryById } from '../helpers/getCountryById';
 
 export const CountryPage = () => {
@@ -13,6 +13,10 @@ export const CountryPage = () => {
     const country = useMemo( () => getCountryById( id ), [ id ]); 
     console.log(country)
   return (
+    <>
     <div>CountryPage</div>
+    <p>{id}</p>
+    <Link className='btn btn-primary' to={`/`}>Back</Link>
+    </>
   )
 }

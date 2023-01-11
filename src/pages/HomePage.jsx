@@ -14,7 +14,7 @@ export const HomePage=()=> {
     const [searchParam] = useState(["capital", "name"]);
     const [filteredCountries, setFilteredCountries] = useState([])
     
-
+    
 
 
     useEffect(() => {
